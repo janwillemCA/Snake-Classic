@@ -10,3 +10,5 @@ Features:
 Todo's:
 
 - Growing snake. (Data Structure already defined).
+- Add support for unix 
+
