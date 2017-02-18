@@ -116,8 +116,6 @@ void get_input(node_t * head)
             field[x][y+1] = 's';
             system("cls");
             draw_field(field);
-            if(y == LEFT_BORDER + 1)
-                draw_end();
             field[x][y-1] = 's';
 
             break;
@@ -127,8 +125,6 @@ void get_input(node_t * head)
             draw_snake();
             system("cls");
             draw_field(field);
-            if(y == RIGHT_BORDER - 1)
-                draw_end();
             field[x][y+1] = 's';
 
             break;
@@ -138,8 +134,6 @@ void get_input(node_t * head)
             field[x-1][y] = 's';
             system("cls");
             draw_field(field);
-            if(x == BOTTOM_BORDER - 1)
-                draw_end();
             field[x+1][y] = 's';
 
             break;
@@ -149,8 +143,6 @@ void get_input(node_t * head)
             field[x+1][y] = 's';
             system("cls");
             draw_field(field);
-            if(x == UPPER_BORDER + 1)
-                draw_end();
             field[x-1][y] = 's';
 
             break;
