@@ -25,7 +25,7 @@
 #endif
 
 #define FIELD_WIDTH             20
-#define FIELD_HEIGHT            10
+#define FIELD_HEIGHT            20
 #define GAME_SPEED              100
 #define LEFT_BORDER             0
 #define RIGHT_BORDER            19
@@ -38,7 +38,6 @@ void draw_snake();
 void hidecursor();
 void draw_food();
 void draw_end();
-
 
 int x = 9;
 int prev_x;
@@ -57,7 +56,7 @@ typedef struct node
 } node_t;
 
 
-char field[20][20] =
+char field[FIELD_WIDTH][FIELD_HEIGHT] =
 {
     {'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'},
     {'b', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 'b'},
@@ -81,6 +80,7 @@ char field[20][20] =
     {'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'},
     {'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'}
 };
+
 
 void push(node_t * head, int val)
 {
@@ -130,8 +130,6 @@ void get_input(node_t * head)
             field[x][y+1] = 's';
             system("cls");
             draw_field(field);
-            if(y == LEFT_BORDER + 1)
-                draw_end();
             field[x][y-1] = 's';
 
             break;
@@ -141,8 +139,6 @@ void get_input(node_t * head)
             draw_snake();
             system("cls");
             draw_field(field);
-            if(y == RIGHT_BORDER - 1)
-                draw_end();
             field[x][y+1] = 's';
 
             break;
@@ -152,8 +148,6 @@ void get_input(node_t * head)
             field[x-1][y] = 's';
             system("cls");
             draw_field(field);
-            if(x == BOTTOM_BORDER - 1)
-                draw_end();
             field[x+1][y] = 's';
 
             break;
@@ -163,8 +157,6 @@ void get_input(node_t * head)
             field[x+1][y] = 's';
             system("cls");
             draw_field(field);
-            if(x == UPPER_BORDER + 1)
-                draw_end();
             field[x-1][y] = 's';
 
             break;
@@ -276,6 +268,11 @@ void hidecursor()
     info.dwSize = 100;
     info.bVisible = FALSE;
     SetConsoleCursorInfo(consoleHandle, &info);
+}
+
+void menu()
+{
+
 }
 
 int main()
