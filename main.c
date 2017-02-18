@@ -23,6 +23,8 @@ void draw_field(char field[20][20]);
 void draw_snake();
 void hidecursor();
 void draw_food();
+void draw_end();
+
 
 int x = 9;
 int prev_x;
