@@ -34,7 +34,7 @@
 #define UPPER_BORDER            0
 
 void get_input();
-void draw_field(char field[20][20]);
+void draw_field(char field[FIELD_WIDTH][FIELD_HEIGHT]);
 void draw_snake();
 void hidecursor();
 void draw_food();
