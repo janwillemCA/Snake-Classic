@@ -11,7 +11,7 @@
 #include <windows.h>
 
 #define FIELD_WIDTH             20
-#define FIELD_HEIGHT            10
+#define FIELD_HEIGHT            20
 #define GAME_SPEED              100
 #define LEFT_BORDER             0
 #define RIGHT_BORDER            19
@@ -24,7 +24,6 @@ void draw_snake();
 void hidecursor();
 void draw_food();
 void draw_end();
-
 
 int x = 9;
 int prev_x;
@@ -43,7 +42,7 @@ typedef struct node
 } node_t;
 
 
-char field[20][20] =
+char field[FIELD_WIDTH][FIELD_HEIGHT] =
 {
     {'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'},
     {'b', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 'b'},
@@ -67,6 +66,7 @@ char field[20][20] =
     {'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'},
     {'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'}
 };
+
 
 void push(node_t * head, int val)
 {
@@ -228,6 +228,11 @@ void hidecursor()
     info.dwSize = 100;
     info.bVisible = FALSE;
     SetConsoleCursorInfo(consoleHandle, &info);
+}
+
+void menu()
+{
+
 }
 
 int main()
