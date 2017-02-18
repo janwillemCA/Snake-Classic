@@ -1,5 +1,6 @@
 /**
- * Made By Jan Willem Casteleijn.
+ * Created By Jan Willem Casteleijn.
+ * Maintained By Henri Van Den Munt & Jan Willem Casteleijn
  * Console game Snake.
  * Features: Fully written in C ANSI 99 without Graphic Library's, Collision Detection.
  *
