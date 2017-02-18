@@ -8,7 +8,21 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+
+#ifdef __unix__   
+
+//@TODO ad support for unix
+
+#define OS_Windows 0
+#include <unistd.h>
+
+#elif defined(_WIN32) || defined(WIN32) 
+
+#define OS_Windows 1
 #include <windows.h>
+
+#endif
 
 #define FIELD_WIDTH             20
 #define FIELD_HEIGHT            10
@@ -160,7 +174,33 @@ void get_input(node_t * head)
     }
 }
 
+void draw_menu(){
+    int i;
+    printf("********************\n");
+    for (i = 0; i < 5; ++i)
+    {
+        printf("*                  *\n");
+    }       
+        printf("*    S n a k e     *\n");
+        printf("*                  *\n");
+        printf("*    Press any     *\n");
+        printf("*   key to start   *\n");
+    for (i = 0; i < 11; ++i)
+    {
+        printf("*                  *\n");
+    }
+    printf("********************\n");
+    bool nokeypressed = true;
+    while(nokeypressed){
+        if(kbhit()){
+            nokeypressed = false;
+        }
+    }
+}
 
+void generate_field(int height, int width){
+    //@TODO
+}
 
 void draw_field(char field[20][20])
 {
@@ -254,6 +294,10 @@ int main()
     system("cls");
 
     hidecursor();
+
+    draw_menu();
+
+    system("cls");
 
     while(1)
     {
