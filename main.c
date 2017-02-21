@@ -1,6 +1,6 @@
 /**
  * Created By Jan Willem Casteleijn.
- * Maintained By Henri Van Den Munt & Jan Willem Casteleijn
+ * Maintained By Henri Van De Munt & Jan Willem Casteleijn
  * Console game Snake.
  * Features: Fully written in C ANSI 99 without Graphic Library's, Collision Detection.
  *
@@ -11,14 +11,14 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#ifdef __unix__   
+#ifdef __unix__
 
 //@TODO ad support for unix
 
 #define OS_Windows 0
 #include <unistd.h>
 
-#elif defined(_WIN32) || defined(WIN32) 
+#elif defined(_WIN32) || defined(WIN32)
 
 #define OS_Windows 1
 #include <windows.h>
@@ -39,23 +39,16 @@ void draw_snake();
 void hidecursor();
 void draw_food();
 void draw_end();
+void draw_tail(int x, int y);
 
 int x = 9;
-int prev_x;
-int prev_y;
 int y = 9;
 int rand_x = 5;
 int rand_y = 5;
 int score = 0;
 int snake_len = 0;
 char food = 'f';
-
-typedef struct node
-{
-    int val;
-    struct node * next;
-} node_t;
-
+char tail = 't';
 
 char field[FIELD_WIDTH][FIELD_HEIGHT] =
 {
@@ -83,32 +76,9 @@ char field[FIELD_WIDTH][FIELD_HEIGHT] =
 };
 
 
-void push(node_t * head, int val)
-{
-    node_t * current = head;
-    while (current->next != NULL)
-    {
-        current = current->next;
-    }
 
-    /* now we can add a new variable */
-    current->next = malloc(sizeof(node_t));
-    current->next->val = val;
-    current->next->next = NULL;
-}
 
-void print_list(node_t * head)
-{
-    node_t * current = head;
-
-    while (current != NULL)
-    {
-        printf("Snake length: %d\n", current->val);
-        current = current->next;
-    }
-}
-
-void get_input(node_t * head)
+void get_input()
 {
     char c;
 
@@ -119,46 +89,41 @@ void get_input(node_t * head)
             c = getch();
         }
 
-        print_list(head);
 
-        draw_food(head, snake_len);
+        draw_food();
 
         switch(c)
         {
         case 'a':
             y--;
             draw_snake();
-            field[x][y+1] = 's';
+            field[x][y+score+1] = 's';
             system("cls");
             draw_field(field);
-            field[x][y-1] = 's';
 
             break;
         case 'd':
             y++;
-            field[x][y-1] = 's';
+            field[x][y-score-1] = 's';
             draw_snake();
             system("cls");
             draw_field(field);
-            field[x][y+1] = 's';
 
             break;
         case 's':
             x++;
             draw_snake();
-            field[x-1][y] = 's';
+            field[x-score-1][y] = 's';
             system("cls");
             draw_field(field);
-            field[x+1][y] = 's';
 
             break;
         case 'w':
             x--;
             draw_snake();
-            field[x+1][y] = 's';
+            field[x+score+1][y] = 's';
             system("cls");
             draw_field(field);
-            field[x-1][y] = 's';
 
             break;
         default:
@@ -167,31 +132,35 @@ void get_input(node_t * head)
     }
 }
 
-void draw_menu(){
+void draw_menu()
+{
     int i;
     printf("********************\n");
     for (i = 0; i < 5; ++i)
     {
         printf("*                  *\n");
-    }       
-        printf("*    S n a k e     *\n");
-        printf("*                  *\n");
-        printf("*    Press any     *\n");
-        printf("*   key to start   *\n");
+    }
+    printf("*    S n a k e     *\n");
+    printf("*                  *\n");
+    printf("*    Press any     *\n");
+    printf("*   key to start   *\n");
     for (i = 0; i < 11; ++i)
     {
         printf("*                  *\n");
     }
     printf("********************\n");
     bool nokeypressed = true;
-    while(nokeypressed){
-        if(kbhit()){
+    while(nokeypressed)
+    {
+        if(kbhit())
+        {
             nokeypressed = false;
         }
     }
 }
 
-void generate_field(int height, int width){
+void generate_field(int height, int width)
+{
     //@TODO
 }
 
@@ -238,7 +207,7 @@ void draw_snake()
 }
 
 
-void draw_food(node_t * head, int snake_len)
+void draw_food()
 {
     srand(time(NULL));
 
@@ -247,9 +216,6 @@ void draw_food(node_t * head, int snake_len)
     if(x == rand_x && y == rand_y)
     {
         score++;
-        snake_len = score;
-
-        push(head, snake_len);
 
         rand_x = ( rand() % 15 ) + 2;
         rand_y = ( rand() % 15  ) + 2;
@@ -271,24 +237,9 @@ void hidecursor()
     SetConsoleCursorInfo(consoleHandle, &info);
 }
 
-void menu()
-{
-
-}
 
 int main()
 {
-
-    node_t * head = NULL;
-    head = malloc(sizeof(node_t));
-    if (head == NULL)
-    {
-        return 1;
-    }
-
-    head->val = 1;
-    head->next = NULL;
-
     system("cls");
 
     hidecursor();
@@ -303,7 +254,7 @@ int main()
 
         draw_field(field);
 
-        get_input(head);
+        get_input();
 
         Sleep(GAME_SPEED);
     }
