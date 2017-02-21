@@ -9,6 +9,6 @@ Features:
 
 Todo's:
 
-- Growing snake. (Data Structure already defined).
+- remove old tail pieces when changing direction
 - Add support for unix 
 
