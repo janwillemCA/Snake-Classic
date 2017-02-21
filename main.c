@@ -39,16 +39,15 @@ void draw_snake();
 void hidecursor();
 void draw_food();
 void draw_end();
-void draw_tail(int x, int y);
+void draw_menu();
+
 
 int x = 9;
 int y = 9;
 int rand_x = 5;
 int rand_y = 5;
 int score = 0;
-int snake_len = 0;
 char food = 'f';
-char tail = 't';
 
 char field[FIELD_WIDTH][FIELD_HEIGHT] =
 {
@@ -88,7 +87,6 @@ void get_input()
         {
             c = getch();
         }
-
 
         draw_food();
 
@@ -200,8 +198,6 @@ void draw_field(char field[20][20])
 void draw_snake()
 {
     char head = 'h';
-    char tail = 't';
-
     field[x][y] = head;
     Sleep(GAME_SPEED);
 }
